@@ -3,4 +3,5 @@ Supervised Research Project
 
 # Each folder contains the appropriate documents in this project
 
-# project folder contains the main project and its corresponding files such as source code 
+# software folder contains the main project (software) and its corresponding files such as source code 
+# the in the software folder please read the readme
