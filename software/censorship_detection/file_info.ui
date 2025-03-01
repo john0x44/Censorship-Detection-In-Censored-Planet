@@ -96,6 +96,19 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
         <number>0</number>
        </property>
        <item>
+        <widget class="QLabel" name="label_6">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>FROM DATASET | </string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="label_2">
          <property name="font">
           <font>

@@ -19,6 +19,7 @@ class MainWindow(QMainWindow):
         self.FILEINFO_UI_WINDOW=QtWidgets.QMainWindow() 
         self.FILEINFO_UI=fileInfoUI.FileInfoUI() 
         self.FILEINFO_UI.setupUi(self.FILEINFO_UI_WINDOW)
+        
         #pass in the windows 
         ConnectUI(self.ui,self.FILEINFO_UI)
         self.setWindowTitle("Censorship Detection")

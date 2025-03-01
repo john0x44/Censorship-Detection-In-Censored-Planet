@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1434</width>
+    <width>1439</width>
     <height>597</height>
    </rect>
   </property>
@@ -44,6 +44,12 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
 </string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -72,7 +78,7 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
         <widget class="QFrame" name="frame_2">
          <property name="maximumSize">
           <size>
-           <width>250</width>
+           <width>255</width>
            <height>16777215</height>
           </size>
          </property>
@@ -115,6 +121,10 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
               <bold>false</bold>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Right: 0px;
+</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
             </property>
@@ -138,10 +148,48 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
               <number>0</number>
              </property>
              <item>
+              <widget class="QPushButton" name="pushButton_4">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>45</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">Border-Right: 0px;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>icons/info.svg</normaloff>icons/info.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QLabel" name="label_2">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
-                 <pointsize>9</pointsize>
+                 <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
@@ -151,7 +199,7 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
 Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
                </property>
                <property name="text">
-                <string>Total Files Loaded [10] 
+                <string>Total Files In Directory [10] 
  Total File Size [10 MB]</string>
                </property>
                <property name="alignment">
@@ -181,17 +229,32 @@ Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>247</width>
-               <height>503</height>
+               <width>252</width>
+               <height>513</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>0</number>
+              </property>
+              <property name="leftMargin">
+               <number>0</number>
+              </property>
+              <property name="topMargin">
+               <number>0</number>
+              </property>
+              <property name="rightMargin">
+               <number>0</number>
+              </property>
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
               <item alignment="Qt::AlignTop">
                <widget class="QFrame" name="frame_4">
                 <property name="minimumSize">
                  <size>
                   <width>0</width>
-                  <height>35</height>
+                  <height>55</height>
                  </size>
                 </property>
                 <property name="maximumSize">
@@ -240,7 +303,12 @@ Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
                     <string notr="true">Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
                    </property>
                    <property name="text">
-                    <string>FILE [1] INFO</string>
+                    <string>[Dataset: 1-20-2019] 
+        [country: UA]</string>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/file.svg</normaloff>icons/file.svg</iconset>
                    </property>
                   </widget>
                  </item>
@@ -265,7 +333,9 @@ Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
                     </font>
                    </property>
                    <property name="styleSheet">
-                    <string notr="true">Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
+                    <string notr="true">Border-Bottom: 3px solid rgba(255,255,255,0.05);
+Border-Left: 3px solid rgba(255,255,255,0.05);
+</string>
                    </property>
                    <property name="text">
                     <string>SELECT FILE</string>
@@ -315,7 +385,9 @@ Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
+             <string notr="true">Border-Bottom: 3px solid rgba(255,255,255,0.05);
+Border-Left: 0px;
+</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::StyledPanel</enum>
@@ -340,30 +412,70 @@ Border-Bottom: 3px solid rgba(255,255,255,0.05);</string>
               <number>0</number>
              </property>
              <item>
-              <widget class="QLabel" name="label">
+              <widget class="QLineEdit" name="lineEdit_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
                <property name="maximumSize">
                 <size>
-                 <width>16777215</width>
+                 <width>150</width>
                  <height>16777215</height>
                 </size>
                </property>
                <property name="font">
                 <font>
-                 <pointsize>10</pointsize>
                  <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">Border-Bottom: 0px;
-Border-Right: 3px solid rgba(255,255,255,0.02);
-Border-Left: 0px;</string>
+                <string notr="true">Border-Bottom: 0px;</string>
                </property>
                <property name="text">
-                <string> Files Selected [2] | Files Selected Total Size [10MB] | Countries Selected [1] | Batch Size [500] | Iterations [1] | Loaded Batches In Memory [0 MB]</string>
+                <string/>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
+               </property>
+               <property name="placeholderText">
+                <string>ENTER ITERATIONS</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="lineEdit">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>150</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">Border-Bottom: 0px;</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <property name="placeholderText">
+                <string>ENTER BATCH AMOUNT</string>
                </property>
               </widget>
              </item>
@@ -377,7 +489,7 @@ Border-Left: 0px;</string>
                </property>
                <property name="maximumSize">
                 <size>
-                 <width>122</width>
+                 <width>16777215</width>
                  <height>16777215</height>
                 </size>
                </property>
@@ -388,7 +500,9 @@ Border-Left: 0px;</string>
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">Border-Bottom: 0px;</string>
+                <string notr="true">Border-Bottom: 0px;
+Border-Left: 3px solid rgba(255,255,255,0.05);
+</string>
                </property>
                <property name="text">
                 <string>LOAD BATCH</string>
@@ -425,25 +539,139 @@ Border-Left: 0px;</string>
      </widget>
     </item>
     <item>
-     <widget class="QLabel" name="label_3">
+     <widget class="QFrame" name="frame_7">
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>30</height>
+        <height>35</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.05);</string>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
       </property>
-      <property name="text">
-       <string>STATUS [PROCESSING BATCH]</string>
-      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="pushButton_5">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>icons/status.svg</normaloff>icons/status.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_3">
+         <property name="maximumSize">
+          <size>
+           <width>220</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.05);
+Border-Right: 3px solid rgba(255,255,255,0.05);</string>
+         </property>
+         <property name="text">
+          <string>STATUS [PROCESSING BATCH]  </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>30</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>icons/info.svg</normaloff>icons/info.svg</iconset>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>9</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.05);
+</string>
+         </property>
+         <property name="text">
+          <string>FILES SELECTED [2] | FILES SELECTED TOTAL SIZE [10MB] | COUNTRIES SELECTED [1] | BATCH SIZE [500] | ITERATIONS [1] | LOADED BATCHES IN MEMORY [0 MB]</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

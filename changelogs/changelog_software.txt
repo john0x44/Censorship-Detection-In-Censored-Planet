@@ -1,8 +1,30 @@
 #Change log for the software itself 
 
+# TODO 2/24
 # TODO: Working on loading data into memory since we cannot just load the entire dataset into memory it will cause the machine to slow down
 # TODO: Need to fix loading dataset into memory -> so we must come up with an efficient "mini batch" strategy 
 # TODO: Strategy will consist of loading in "batches" of N amount of data from each dataset into memory we will utilize 
 #       threading specifically qthreading in our application so that the UI does not 
 #       "hang" or slow down and our data processing is hapenning in the background 
 # TODO: Need to add in the thread manager for loading datasets into memory 
+
+# CHANGED : 2/28
+# REUPDATED UI ELEMENTS 
+
+# ADDED : 2/28 
+# Added file size conversion from bytes to kb, mb 
+# Added storing file info metadata into dictionary 
+# Added storing file country into dictionary 
+# Added metadata into UI 
+# Added fileInfo into UI 
+# Added selecting/unselecting file strategy
+# Added updating details dynamically 
+
+# ADDED: 3/1
+# Added minibatch approach
+# Added miniBatch class file in which we process the batches 
+# Added threadManager to manage QThreads such as minibatch threading
+# Added minibatch threading
+
+# TODO: 3/1 
+# Implement file progress saving [optional]

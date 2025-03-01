@@ -13,11 +13,13 @@ from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
 
-class FileInfoUI(object):
+class FileInfoUI(object):    
     def setupUi(self, MainWindow):
+        self.FileMetaData = None
         self.MainWindow = MainWindow
+
         if not MainWindow.objectName():
-            MainWindow.setObjectName(u"MainWindow")
+            MainWindow.setObjectName(u"FileInfo")
         MainWindow.resize(800, 416)
         MainWindow.setStyleSheet(u"background-color: black;\n"
 "color: white;\n"
@@ -71,11 +73,17 @@ class FileInfoUI(object):
         self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.label_2 = QLabel(self.frame)
-        self.label_2.setObjectName(u"label_2")
+        self.label_6 = QLabel(self.frame)
+        self.label_6.setObjectName(u"label_6")
         font1 = QFont()
         font1.setBold(True)
         font1.setWeight(75)
+        self.label_6.setFont(font1)
+
+        self.verticalLayout_2.addWidget(self.label_6)
+
+        self.label_2 = QLabel(self.frame)
+        self.label_2.setObjectName(u"label_2")
         self.label_2.setFont(font1)
         self.label_2.setStyleSheet(u"Border-Bottom: 3px solid rgba(255,255,255,0.025);\n"
 "")
@@ -115,12 +123,20 @@ class FileInfoUI(object):
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
+    def updateFileMetaDataUI(self):
+        self.label.setText(f"DETAIL ABOUT FILE [{self.FileMetaData['FileName']}]")
+        self.label_6.setText(f"FROM DATASET | [{self.FileMetaData['DirectoryFrom']}]")
+        self.label_2.setText(f"FILE NAME | [{self.FileMetaData['FileName']}]")
+        self.label_4.setText(f"FILE SIZE | [{self.FileMetaData['MBSize']}][MB]")
+        self.label_3.setText(f"COUNTRY | [{self.FileMetaData['Country']}]")
+        self.label_5.setText(f"DATE | [{self.FileMetaData['FileDate']}]")
+
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        MainWindow.setWindowTitle("FileInfo")
         self.label.setText(QCoreApplication.translate("MainWindow", u"DETAILS ABOUT FILE ", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"FROM DATASET | ", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"FILE NAME | ", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"FILE SIZE | ", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"COUNTRY | ", None))
         self.label_5.setText(QCoreApplication.translate("MainWindow", u"DATE | ", None))
     # retranslateUi
-
