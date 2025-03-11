@@ -28,3 +28,29 @@
 
 # TODO: 3/1 
 # Implement file progress saving [optional]
+
+# FIXED 3/1 
+# Fixed issues with displaying total memory of batches loaded into memory 
+# Come up with a strategy for filtering false positives 
+
+# TODO: 3/7 
+# TODO: Work on filtering data strategy (Made filtering.py class to filter batches)
+
+# TODO 3/8 
+# Work on filtering class 
+
+# IMPLEMENTED 3/8
+# Implemented pointMeasurement.py class [can add more filtering but for now its good] 
+
+# FIXED 3/9
+# bug fixes such as incorectly loading in batches and indexing them wrong
+# Add in the detected dataset list into "blank UI" area
+
+# 3/10
+# IMPLEMENTED
+# New set conditions in 'pointMeasurement' class 
+# Added new UI feature : Visually show the 'measurement score' and visualize them in a most-likely vs non-likely censorship event 
+# Implemented showEvents class : which correlates to the new UI feature (will be modified later)
+# Organized files into its own folders, managers, services 
+# Managers contain managers that manage important tasks such as a threadmanager
+# Services contain services that pertain to data processing 

@@ -5,7 +5,7 @@ import os
 import re 
 from functools import partial 
 
-from miniBatch import MiniBatch 
+from services.miniBatch import MiniBatch 
 
 #class for creating a file frame
 class createFileFrame:
@@ -49,7 +49,7 @@ class createFileFrame:
         self.pushButton.setObjectName(u"pushButton")
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMaximumSize(QSize(85, 16777215))
+        self.pushButton.setMaximumSize(QSize(88, 16777215))
         self.pushButton_2.setMinimumSize(QSize(85, 16777215))
         self.pushButton.setFont(font2)
         self.pushButton.setStyleSheet(u"Border-Bottom: 3px solid rgba(255,255,255,0.05)")
@@ -92,7 +92,7 @@ class ConnectUI:
 
         # create the minibatch file 
         # pass in the process batch button
-        self.miniBatch = MiniBatch(self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount) 
+        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize) 
 
         # iteration input 
         self.iterationInput = self.UI.lineEdit_2
@@ -144,6 +144,12 @@ class ConnectUI:
         self.selectedFilesCount = 0 
         self.selectedFilesTotalSize = 0.0
 
+        self.batchesMemSize = 0 #the memory of all batches loaded into memory
+
+    def updateBatchesMemSize(self, newBatchesMemSize):
+        self.batchesMemSize = newBatchesMemSize 
+        self.updateBottomLabelInfo() 
+
     def getIterationAmount(self):
         return self.iterations
     
@@ -152,7 +158,7 @@ class ConnectUI:
     
     #update additional info 
     def updateBottomLabelInfo(self):
-        self.bottomLabelInfo.setText(f"FILES SELECTED [{self.selectedFilesCount}] | FILES SELECTED TOTAL SIZE [{self.selectedFilesTotalSize}][MB] | COUNTRIES SELECTED [{self.selectedFilesCount}] | BATCH SIZE [{self.batchSize}] | ITERATIONS [{self.iterations}] | LOADED BATCHES IN MEMORY [0 MB]")
+        self.bottomLabelInfo.setText(f"FILES SELECTED [{self.selectedFilesCount}] | FILES SELECTED TOTAL SIZE [{self.selectedFilesTotalSize}][MB] | COUNTRIES SELECTED [{self.selectedFilesCount}] | BATCH SIZE [{self.batchSize}] | ITERATIONS [{self.iterations}] | TOTAL BATCHES MEM SIZE [{self.batchesMemSize}][MB]")
     
     # returns if the file was selected or not 
     def processFileSelection(self, fileID, DirectoryFrom, isSelected):
