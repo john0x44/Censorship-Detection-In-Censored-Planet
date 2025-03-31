@@ -14,11 +14,11 @@ import sys
 
 class MiniBatch:
     # grab the batch amount and iteration amount since data can change so we have to always check before processing the batches 
-    def __init__(self, UI, processBatchButton, getBatchAmount, getIterationAmount, updateBatchesMemSize): 
+    def __init__(self, UI, processBatchButton, getBatchAmount, getIterationAmount, updateBatchesMemSize, chartManager, dashboardManager): 
         self.UI = UI 
-
-        self.filtering = Filtering() 
-        self.showEvents = ShowEvents(self.UI)
+        self.chartManager = chartManager 
+        self.filtering = Filtering(dashboardManager) 
+        self.showEvents = ShowEvents(self.UI, chartManager)
     
         self.processBatchThread = ProcessBatchThread
         self.mainDirectory = "./data" #The directory where we are storing the dataset into 
@@ -44,6 +44,7 @@ class MiniBatch:
 
         self.currentBatches = [] #store the current batches being processed 
 
+
     def processThreadResult(self,batchResult):
         self.threadsRunning -= 1 
         # Before appending the batches we can filter it here 
@@ -65,8 +66,45 @@ class MiniBatch:
             print(f"Loaded batches in memory {self.batchesMemSize}[MB]")
             self.processingBatch = False
             self.batchesProcessed = self.batchesProcessed + self.currentBatches
+
+            all_batches = []
+
+            for batch in self.batchesProcessed:
+                if not batch or 'batch' not in batch:
+                    continue
+
+                # loop through sub-batches safely
+                for i in range(len(batch['batch'])):
+                    sub_batch_key = i + 1
+                    if sub_batch_key not in batch['batch']:
+                        continue
+
+                    thisBatch = batch['batch'][sub_batch_key]
+                    for entry in thisBatch:
+                        if entry.get('canUse', False):
+                            all_batches.append(entry)
+
+            self.filtering.treeAnalyzer.train_model(all_batches)
+
+            for batch in self.batchesProcessed:
+                if not batch or 'batch' not in batch:
+                    continue
+
+                for i in range(len(batch['batch'])):
+                    sub_batch_key = i + 1
+                    if sub_batch_key not in batch['batch']:
+                        continue
+
+                    thisBatch = batch['batch'][sub_batch_key]
+                    for entry in thisBatch:
+                        if entry.get('canUse', False) and self.filtering.treeAnalyzer.trained:
+                            entry['prediction'] = self.filtering.treeAnalyzer.predict(entry)
+                        else:
+                            entry['prediction'] = "Unknown"
+            
+            self.filtering.treeAnalyzer.visualize_tree()
             self.currentBatches = [] 
-        
+            self.filtering.updateDashboard()
         # visualize the batches onto the UI 
         self.showEvents.showEvents(self.batchesProcessed)
 

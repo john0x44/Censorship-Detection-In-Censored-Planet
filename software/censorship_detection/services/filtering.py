@@ -34,13 +34,33 @@ import json
 import pytz 
 
 from services.pointMeasurement import PointMeasurement
+from services.decisionTree import DecisionTreeAnalyzer
 
 # Filter class can be executed using qthread? [optional]
 class Filtering: 
 
-    def __init__(self):
+    def __init__(self, dashboardManager):
         self.processingFilter = False
         self.pointMeasurement = PointMeasurement() 
+        self.treeAnalyzer = DecisionTreeAnalyzer()
+        self.dashboardManager = dashboardManager
+        # the data we pass to the dashboard after processing all the batches client has selected 
+        self.dataProcessedInfo = {
+            "processed" : 0,
+            "anomalies" : 0,
+            "detected" : 0,
+        }
+    
+    def updateDashboard(self):
+        self.dashboardManager.updateDashboard(self.dataProcessedInfo)
+        self.resetDataProcessedInfo() 
+        
+    def resetDataProcessedInfo(self):
+        self.dataProcessedInfo = {
+            "processed" : 0,
+            "anomalies" : 0,
+            "detected" : 0,
+        }
 
     # We can do the batch processing without thread since we have reasonable amount of data to work with
     def filterBatch(self, origBatch):
@@ -53,15 +73,20 @@ class Filtering:
                 for i in range(batchSize): 
                     # we can add a new metadata into this batch before returning it such as if we can use this batch or not 
                     currentBatch = json.loads(thisBatch[i]) # the one we are indexing 
+                    self.dataProcessedInfo['processed'] += 1
                     if (self.canUseBatch(currentBatch)):
                         # ok we can do further processing 
-
                         # standardize timestamps 
                         currentBatch['start_time'] = self.standardizeTimeStamp(currentBatch['start_time'])
                         currentBatch['end_time'] = self.standardizeTimeStamp(currentBatch['end_time'])
 
                         # we can use the pointmeasurement class here 
                         self.pointMeasurement.calcScore(currentBatch)
+
+                        #if above 0.5 then it is a censor event (we can change this later)
+                        if currentBatch['score'] > 0.5:
+                            self.dataProcessedInfo['detected'] += 1
+
                     # set the filtered batch back to the dict with a 'canUse' flag 
                     origBatch['batch'][iterationIndex+1][i]=currentBatch
             self.processingFilter = False
@@ -82,10 +107,11 @@ class Filtering:
         thisBatch['canUse'] = True 
         # Add a new point measurement datafield 
         thisBatch['score'] = 0.0
-
+        
         try:
             if len(thisBatch['domain']) == 0 or len(thisBatch['no_response_in_measurement_matches_template']) == 0 or len(thisBatch['stateful_block']) == 0 or len(thisBatch['controls_failed']) == 0 or len(thisBatch['domain_is_control']) == 0:
                 thisBatch['canUse'] = False
+                self.dataProcessedInfo['anomalies'] += 1
         except:
             pass
 

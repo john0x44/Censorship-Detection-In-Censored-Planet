@@ -6,6 +6,8 @@ import re
 from functools import partial 
 
 from services.miniBatch import MiniBatch 
+from managers.chartManager import ChartManager
+from managers.dashboardManager import DashboardManager
 
 #class for creating a file frame
 class createFileFrame:
@@ -49,8 +51,8 @@ class createFileFrame:
         self.pushButton.setObjectName(u"pushButton")
         sizePolicy.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
         self.pushButton.setSizePolicy(sizePolicy)
-        self.pushButton.setMaximumSize(QSize(88, 16777215))
-        self.pushButton_2.setMinimumSize(QSize(85, 16777215))
+        self.pushButton.setMaximumSize(QSize(90, 16777215))
+        self.pushButton_2.setMinimumSize(QSize(90, 16777215))
         self.pushButton.setFont(font2)
         self.pushButton.setStyleSheet(u"Border-Bottom: 3px solid rgba(255,255,255,0.05)")
 
@@ -71,7 +73,7 @@ class createFileFrame:
     def updateFileSelection(self):
         if(not(self.selected)):
             self.selected = True 
-            self.pushButton.setText("UNSELECT FILE")
+            self.pushButton.setText("UNSELECT")
         else: 
             self.selected = False 
             self.pushButton.setText("SELECT FILE")
@@ -86,13 +88,19 @@ class createFileFrame:
     
 #class for connecting the backend to frontend 
 class ConnectUI:
-    def __init__(self, UI, fileInfoUI):
+    def __init__(self, UI, fileInfoUI, dashboardUI):
+        self.dashboardUI = dashboardUI
         self.UI = UI 
         self.fileInfoUI = fileInfoUI
 
+        # load in the chart manager 
+        self.chartManager = ChartManager(self.UI)
+        # load the dashboard UI 
+        self.dashboardManager = DashboardManager(self.UI, self.dashboardUI)
+
         # create the minibatch file 
         # pass in the process batch button
-        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize) 
+        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize, self.chartManager, self.dashboardManager) 
 
         # iteration input 
         self.iterationInput = self.UI.lineEdit_2

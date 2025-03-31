@@ -50,7 +50,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.frame_2 = QFrame(self.frame)
         self.frame_2.setObjectName(u"frame_2")
-        self.frame_2.setMaximumSize(QSize(255, 16777215))
+        self.frame_2.setMinimumSize(QSize(290, 16777215))
         self.frame_2.setStyleSheet(u"Border-Right: 3px solid rgba(255,255,255,0.05);")
         self.frame_2.setFrameShape(QFrame.StyledPanel)
         self.frame_2.setFrameShadow(QFrame.Raised)
@@ -218,13 +218,28 @@ class Ui_MainWindow(object):
         self.pushButton_3.setFont(font2)
         self.pushButton_3.setStyleSheet(u"Border-Bottom: 0px;\n"
 "Border-Left: 3px solid rgba(255,255,255,0.05);\n"
+"Border-Right: 3px solid rgba(255,255,255,0.05);\n"
 "")
         icon2 = QIcon()
-        icon2.addFile(u"../modelX_files/2_21_2025/MODEL_X/icons/ai.svg", QSize(), QIcon.Normal, QIcon.Off)
+        icon2.addFile(u"icons/process.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.pushButton_3.setIcon(icon2)
         self.pushButton_3.setIconSize(QSize(30, 30))
 
         self.horizontalLayout_2.addWidget(self.pushButton_3)
+
+        self.pushButton_7 = QPushButton(self.topBar)
+        self.pushButton_7.setObjectName(u"pushButton_7")
+        sizePolicy.setHeightForWidth(self.pushButton_7.sizePolicy().hasHeightForWidth())
+        self.pushButton_7.setSizePolicy(sizePolicy)
+        self.pushButton_7.setFont(font1)
+        self.pushButton_7.setStyleSheet(u"Border-Bottom: 0px;")
+        icon3 = QIcon()
+        icon3.addFile(u"icons/monitor.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_7.setIcon(icon3)
+        self.pushButton_7.setIconSize(QSize(25, 25))
+
+        self.horizontalLayout_2.addWidget(self.pushButton_7)
+
 
 
         self.verticalLayout_5.addWidget(self.topBar)
@@ -239,7 +254,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.frame_8 = QFrame(self.frame_5)
         self.frame_8.setObjectName(u"frame_8")
-        self.frame_8.setMaximumSize(QSize(293, 16777215))
+        self.frame_8.setMinimumSize(QSize(295, 16777215))
         self.frame_8.setStyleSheet(u"Border-Right: 3px solid rgba(255,255,255,0.05);\n"
 "")
         self.frame_8.setFrameShape(QFrame.StyledPanel)
@@ -280,7 +295,7 @@ class Ui_MainWindow(object):
         self.frame_9.setObjectName(u"frame_9")
         self.frame_9.setFrameShape(QFrame.StyledPanel)
         self.frame_9.setFrameShadow(QFrame.Raised)
-
+        self.frame_9.setMinimumSize(QSize(50, 16777215))
         self.horizontalLayout_6.addWidget(self.frame_9)
 
 
@@ -356,6 +371,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
+        self.pushButton_7.setText("DASHBOARD")
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.pushButton_4.setText("")
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Total Files In Directory [10] \n"

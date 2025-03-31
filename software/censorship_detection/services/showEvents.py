@@ -42,12 +42,15 @@ class CreateLabelEvent:
 
 class ShowEvents:
     
-    def __init__(self, UI):
+    def __init__(self, UI, chartManager):
         self.UI = UI 
+        self.chartManager = chartManager
     
 
     def showEvents(self, batches):
+        
         filesCount = len(batches)
+        datasetsGot = [] 
         for i in range (filesCount):
             # grab each file 
             thisFileBatches = batches[i]['batch']
@@ -64,4 +67,10 @@ class ShowEvents:
                     currentBatchStart = thisBatch[x]['start_time']
                     currentBatchEnd = thisBatch[x]['end_time']
 
-                    CreateLabelEvent(self.UI,{"score":currentBatchScore,"domain":currentBatchDomain,"country":currentBatchCountry,"start":currentBatchStart,"end":currentBatchEnd})
+                    # we can determine if an event is a censored event by the currentBatchScore anything above 0.5 is considered a censored event anything below 0.49 a non censored event 
+                    #       
+                    datasetProcessed = {"score":currentBatchScore,"domain":currentBatchDomain,"country":currentBatchCountry,"start":currentBatchStart,"end":currentBatchEnd}
+                    datasetsGot.append(datasetProcessed)
+                    CreateLabelEvent(self.UI,datasetProcessed)
+            # we pass this datasetProcessed to the chartManager here and visualize the chart using the data from datasets got 
+            self.chartManager.loadDataset(datasetsGot)

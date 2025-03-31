@@ -36,11 +36,14 @@
 # Combination with other indictors 
 # recieved_status code 403,451 or 503 (can increase score) 
 # TODO: look for text codes in recieved body 
+
+from services.decisionTree import DecisionTreeAnalyzer 
+
 class PointMeasurement:
 
     def __init__(self):
         self.calculatingScore = False 
-
+        
     # analyze a particular batch to get a score for it 
     def calcScore(self, thisBatch):
         if not(self.calculatingScore):
