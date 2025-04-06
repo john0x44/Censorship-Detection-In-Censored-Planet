@@ -1,0 +1,14 @@
+{"timestamp": "2025-04-05 14:41:47", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-05 14:47:40", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-05 14:48:56", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-05 14:50:53", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-05 14:51:52", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-05 14:56:34", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-05 14:58:01", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 14:12:08", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 14:13:40", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 14:14:30", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 14:19:09", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 14:20:42", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 14:22:41", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}
+{"timestamp": "2025-04-06 19:49:18", "domain": "", "server_country": "AE", "reason": "Missing critical fields"}

@@ -35,6 +35,8 @@ import pytz
 
 from services.pointMeasurement import PointMeasurement
 from services.decisionTree import DecisionTreeAnalyzer
+from services.anomalyLogger import AnomalyLogger 
+from services.censorshipLogger import CensorshipLogger
 
 # Filter class can be executed using qthread? [optional]
 class Filtering: 
@@ -43,6 +45,11 @@ class Filtering:
         self.processingFilter = False
         self.pointMeasurement = PointMeasurement() 
         self.treeAnalyzer = DecisionTreeAnalyzer()
+        #import the loggers 
+        self.anomalyLogger = AnomalyLogger()
+        self.censorshipLogger = CensorshipLogger()
+
+
         self.dashboardManager = dashboardManager
         # the data we pass to the dashboard after processing all the batches client has selected 
         self.dataProcessedInfo = {
@@ -86,7 +93,9 @@ class Filtering:
                         #if above 0.5 then it is a censor event (we can change this later)
                         if currentBatch['score'] > 0.5:
                             self.dataProcessedInfo['detected'] += 1
-
+                        #If censorship is a high probability one we add it to log file 
+                        if currentBatch['score'] > 0.5:
+                            self.censorshipLogger.log(currentBatch)
                     # set the filtered batch back to the dict with a 'canUse' flag 
                     origBatch['batch'][iterationIndex+1][i]=currentBatch
             self.processingFilter = False
@@ -112,6 +121,7 @@ class Filtering:
             if len(thisBatch['domain']) == 0 or len(thisBatch['no_response_in_measurement_matches_template']) == 0 or len(thisBatch['stateful_block']) == 0 or len(thisBatch['controls_failed']) == 0 or len(thisBatch['domain_is_control']) == 0:
                 thisBatch['canUse'] = False
                 self.dataProcessedInfo['anomalies'] += 1
+                self.anomalyLogger.log(thisBatch)
         except:
             pass
 

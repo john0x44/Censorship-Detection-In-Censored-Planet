@@ -7,6 +7,7 @@ from managers.threadManager import ProcessBatchThread
 
 from services.filtering import Filtering 
 from services.showEvents import ShowEvents 
+from services.countrySummary import CountrySummary
 
 import json 
 import os 
@@ -14,12 +15,14 @@ import sys
 
 class MiniBatch:
     # grab the batch amount and iteration amount since data can change so we have to always check before processing the batches 
-    def __init__(self, UI, processBatchButton, getBatchAmount, getIterationAmount, updateBatchesMemSize, chartManager, dashboardManager): 
+    def __init__(self, UI, processBatchButton, getBatchAmount, getIterationAmount, updateBatchesMemSize, chartManager, dashboardManager, databaseManager): 
         self.UI = UI 
+        self.databaseManager = databaseManager
         self.chartManager = chartManager 
         self.filtering = Filtering(dashboardManager) 
         self.showEvents = ShowEvents(self.UI, chartManager)
-    
+        self.dashboardManager = dashboardManager
+        self.countrySummary = CountrySummary()
         self.processBatchThread = ProcessBatchThread
         self.mainDirectory = "./data" #The directory where we are storing the dataset into 
 
@@ -102,9 +105,39 @@ class MiniBatch:
                         else:
                             entry['prediction'] = "Unknown"
             
+            #Country summary events 
+
+            # Update country-based censorship count
+            for batch in self.batchesProcessed:
+                if not batch or 'batch' not in batch:
+                    continue
+                for i in range(len(batch['batch'])):
+                    sub_batch_key = i + 1
+                    if sub_batch_key not in batch['batch']:
+                        continue
+                    thisBatch = batch['batch'][sub_batch_key]
+                    for entry in thisBatch:
+                        if entry.get("canUse", False):
+                            self.countrySummary.update(entry)
+
+            # Print summary to console
+            self.countrySummary.print_summary()
+
             self.filtering.treeAnalyzer.visualize_tree()
             self.currentBatches = [] 
+            self.dashboardManager.updateTopBlockedDomains(self.batchesProcessed)
             self.filtering.updateDashboard()
+
+            self.databaseManager.loadAnomalies(self.filtering.anomalyLogger.getAnomalies())
+            self.databaseManager.loadCountries(self.countrySummary.getSummary())
+            self.databaseManager.loadCensoredEvents([
+                entry for batch in self.batchesProcessed if 'batch' in batch
+                for sub_batch in batch['batch'].values()
+                for entry in sub_batch if entry.get("score", 0) > 0.5
+            ])
+            print("\n[Recent Anomalies]")
+            for a in self.filtering.anomalyLogger.get_summary():
+                print(f"Domain: {a['domain']} | Country: {a['server_country']} | Time: {a['timestamp']} | Reason: {a['reason']}")
         # visualize the batches onto the UI 
         self.showEvents.showEvents(self.batchesProcessed)
 

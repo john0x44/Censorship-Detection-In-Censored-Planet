@@ -54,3 +54,54 @@
 # Organized files into its own folders, managers, services 
 # Managers contain managers that manage important tasks such as a threadmanager
 # Services contain services that pertain to data processing 
+
+# 3/11 - 3/29 
+# TODO 
+# Feature 1 : Timeline of Censorship Events vs Non-Censorship Events
+
+# A graph implementation showing the number of censorship events and non censorship events (network failures) detected over time. This will help us visualize trends in when censorship events happen and how they are
+# distributed across the dataset
+
+# X-Axis : Time (timestamp of batch)
+# Y-Axis: Count of events
+
+# Feature 2 : Dataquality dashboard
+
+# Dashboard showing various statistics about the data that was processed including
+
+# Number of events classified as censorship vs non censorship
+# A breakdown of anomalies in data (such as missing data)
+# TODO (optional) : Can log the anomalies into dashboard 
+# TODO (optional) : Can group by similar attributes in the data 
+
+# Success vs Failure rate for different processing batches
+
+# Feature 3 : Implementing decision trees for a refined approach (Optional)
+
+# Decision trees can be used with the combination of the point measurement approach to refine censorship events vs non censorship events
+# If pointMeasurement score provides a good distinction between censorship and non censorship events then decision trees might not add that much value
+
+# Feature 4: Censorship event history and trend analysis
+
+# Allow system to track historical censorship events over time and generate trends or patterns based on past measurements
+# Track the frequency of censorship events over different time intervals . then show the trend of censorship events over time. Which can help users identify periods of increased censorship activiity,
+# or correlate censorship events with specific times.
+
+# Feature 5: Database storage
+
+# Store the batch into a datastorage with the point measurement score for future analysis
+
+# IMPLEMENTED 
+# Feature 1 : Implemented intuitive graph visualization between censored vs non censored events 
+# Feature 2 : Implemented intuitive data quality dashboard in which shows how data is processed 
+# Shows detected anomalies in events, how much data was processed, whats the event success rate [censored/non censored]
+
+# Feature 3 : Implemented (optional decision trees)
+
+# 3/29 - 3/6 
+# IMPLEMENTED/FIXED DecisionTree.py : Added heuristics 
+# IMPLEMNETED topBlockedDomains into dashboardManager.py : Show the top blocked domains in the datasets that the user has selected
+# IMPLEMENTED anomalyLogger class : Show anomalies within the dataset (those datasets that were not filtered)
+# IMPLEMENTED countrySummary class : Show the detected countries with its corresponding events detected
+# IMPLEMENTED censorshipLogger class : Extract the censored events into a txt file
+# IMPLEMENTED databaseManager class : Makes all summary components viewable into one component making database saving easier

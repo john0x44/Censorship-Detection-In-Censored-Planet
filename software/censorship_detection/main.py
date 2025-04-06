@@ -4,6 +4,9 @@ from PySide2.QtWidgets import *
 from PySide2 import QtWidgets
 
 from backendUI import Ui_MainWindow
+
+#import ui 
+import databaseUI
 import fileInfoUI
 import dashboardUI
 
@@ -17,6 +20,11 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        # view database info ui, use later
+        self.DATABASE_UI_WINDOW=QtWidgets.QMainWindow()
+        self.DATABASE_UI=databaseUI.DatabaseUI()
+        self.DATABASE_UI.setupUi(self.DATABASE_UI_WINDOW)
+
         # view file info ui, use later
         self.FILEINFO_UI_WINDOW=QtWidgets.QMainWindow() 
         self.FILEINFO_UI=fileInfoUI.FileInfoUI() 
@@ -28,7 +36,7 @@ class MainWindow(QMainWindow):
         self.DASHBOARD_UI.setupUi(self.DASHBOARD_UI_WINDOW)
 
         #pass in the windows 
-        ConnectUI(self.ui,self.FILEINFO_UI,self.DASHBOARD_UI)
+        ConnectUI(self.ui,self.FILEINFO_UI,self.DASHBOARD_UI,self.DATABASE_UI)
         self.setWindowTitle("Censorship Detection")
 
 if __name__ == '__main__':

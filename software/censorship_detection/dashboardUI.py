@@ -136,7 +136,7 @@ class DashboardUI(object):
 
         self.frame_4 = QFrame(self.frame)
         self.frame_4.setObjectName(u"frame_4")
-        self.frame_4.setMaximumSize(QSize(16777215, 50))
+        self.frame_4.setMaximumSize(QSize(16777215, 110))
         self.frame_4.setStyleSheet(u"Border-Bottom: 3px solid rgba(255,255,255,0.05);\n"
 "")
         self.frame_4.setFrameShape(QFrame.StyledPanel)

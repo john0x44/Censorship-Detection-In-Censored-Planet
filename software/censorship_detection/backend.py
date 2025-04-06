@@ -4,10 +4,11 @@ from PySide2.QtWidgets import *
 import os 
 import re 
 from functools import partial 
-
+#import necessary services/managers 
 from services.miniBatch import MiniBatch 
 from managers.chartManager import ChartManager
 from managers.dashboardManager import DashboardManager
+from managers.databaseManager import DatabaseManager 
 
 #class for creating a file frame
 class createFileFrame:
@@ -88,7 +89,8 @@ class createFileFrame:
     
 #class for connecting the backend to frontend 
 class ConnectUI:
-    def __init__(self, UI, fileInfoUI, dashboardUI):
+    def __init__(self, UI, fileInfoUI, dashboardUI, databaseUI):
+        self.databaseUI = databaseUI 
         self.dashboardUI = dashboardUI
         self.UI = UI 
         self.fileInfoUI = fileInfoUI
@@ -97,10 +99,10 @@ class ConnectUI:
         self.chartManager = ChartManager(self.UI)
         # load the dashboard UI 
         self.dashboardManager = DashboardManager(self.UI, self.dashboardUI)
-
+        self.databaseManager = DatabaseManager(self.databaseUI,self.UI.pushButton_8)
         # create the minibatch file 
         # pass in the process batch button
-        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize, self.chartManager, self.dashboardManager) 
+        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize, self.chartManager, self.dashboardManager, self.databaseManager) 
 
         # iteration input 
         self.iterationInput = self.UI.lineEdit_2

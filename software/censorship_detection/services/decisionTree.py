@@ -26,44 +26,37 @@ class DecisionTreeAnalyzer:
         self.trained = False
         self.feature_names = [
             "domain_is_control",
-            "no_response_in_measurement_matches_template",
+            "no_response_in_matches_template",
             "stateful_block",
             "matches_template",
             "controls_failed",
             "body_contains_BLOCKED",
-            "status_code",
-            "error_type",
-            "country_is_sensitive",
-            "has_tls_cert" 
+            "status_code_signal",
+            "error_signal",
+            "is_sensitive_country",
         ]
 
-    def prepare_features(self, batch_list):
-        features, labels = [], []
-
-        for entry in batch_list:
+    def prepare_features(self, entries):
+        X, y = [], []
+        for entry in entries:
             try:
-                # Use multiple heuristic signals as features
-                feature_vector = [
-                int(entry.get("domain_is_control", False)),
-                int(entry.get("no_response_in_measurement_matches_template", False)),
-                int(entry.get("stateful_block", False)),
-                int(entry.get("matches_template", False)),
-                int(entry.get("controls_failed", False)),
-                1 if "BLOCKED" in (entry.get("received_body") or "") else 0,
-                self.statusCodeFeature(entry.get("received_status")),
-                self.recievedErrorFeature(entry.get("received_error")),
-                self.countryHeuristic(entry.get("server_country")),
-                self.hasTLSInfo(entry.get("received_tls_cert"))  
+                features = [
+                    int(entry.get("domain_is_control", False)),
+                    int(entry.get("no_response_in_measurement_matches_template", False)),
+                    int(entry.get("stateful_block", False)),
+                    int(entry.get("matches_template", False)),
+                    int(entry.get("controls_failed", False)),
+                    int("BLOCKED" in (entry.get("received_body") or "")),
+                    self.status_code_signal(entry.get("received_status")),
+                    self.error_signal(entry.get("received_error")),
+                    self.country_signal(entry.get("server_country"))
                 ]
-
-                # Label based on combined heuristics
-                label = 1 if self.heuristic_label(entry) else 0
-                features.append(feature_vector)
-                labels.append(label)
+                label = self.heuristic_label(entry)
+                X.append(features)
+                y.append(label)
             except Exception as e:
-                print(e)
-
-        return np.array(features), np.array(labels)
+                print(f"[Feature Prep Error] {e}")
+        return np.array(X), np.array(y)
 
     def heuristic_label(self, entry):
         score = 0
@@ -73,96 +66,74 @@ class DecisionTreeAnalyzer:
         if entry.get("controls_failed"): score -= 1
         if entry.get("matches_template"): score -= 1
         if "BLOCKED" in (entry.get("received_body") or ""): score += 1
-        if self.statusCodeFeature(entry.get("received_status")) in [1, 3]: score += 1
-        if self.recievedErrorFeature(entry.get("received_error")) > 0: score += 1
-        if self.countryHeuristic(entry.get("server_country")) == 1: score += 1
-        return score >= 3
+        if self.status_code_signal(entry.get("received_status")) in [1, 3]: score += 1
+        if self.error_signal(entry.get("received_error")) > 0: score += 1
+        if self.country_signal(entry.get("server_country")) == 1: score += 1
+        return int(score >= 3)
 
-    def statusCodeFeature(self, statusCode):
-        if not statusCode:
-            return 0
-        if "403" in statusCode:
-            return 1
-        if "404" in statusCode:
-            return 2
-        if "451" in statusCode:
-            return 3
-        if "503" in statusCode:
-            return 4
+    def status_code_signal(self, code):
+        if not code: return 0
+        if "403" in code: return 1
+        if "404" in code: return 2
+        if "451" in code: return 3
+        if "503" in code: return 4
         return 0
 
-    def recievedErrorFeature(self, errorMsg):
-        if not errorMsg:
-            return 0
-        if "connection reset by peer" in errorMsg:
-            return 1
-        if "Incorrect web response: status lines don't match" in errorMsg:
-            return 2
+    def error_signal(self, error):
+        if not error: return 0
+        if "connection reset by peer" in error: return 1
+        if "Incorrect web response" in error: return 2
         return 0
 
-    # we can add in more/modify countries but for now we add some high probable censorship countries for testing 
-    def countryHeuristic(self, country):
-        censored_countries = ['CN', 'IR', 'RU', 'SA', 'AE']
-        return 1 if country in censored_countries else 0
+    # We utilize common countrys that can cause blocking for now (this can be changed)
+    def country_signal(self, country):
+        sensitive = {'CN', 'IR', 'RU', 'SA', 'AE'}
+        return 1 if country in sensitive else 0
 
-    def hasTLSInfo(self, tls_cert):
-        return 0 if tls_cert in [None, "", []] else 1
-
-    def train_model(self, batch_list):
-        X, y = self.prepare_features(batch_list)
+    def train_model(self, entries):
+        X, y = self.prepare_features(entries)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
         self.model.fit(X_train, y_train)
         self.trained = True
         y_pred = self.model.predict(X_test)
-        report = classification_report(y_test, y_pred, output_dict=True)
-        print("\nModel Summary:\n" + self.summarize_classification_report(report))
-        return report
-
-    def summarize_classification_report(self, report_dict):
-        summary = []
-        for label in ['0', '1']:
-            if label in report_dict:
-                lbl = "Censorship" if label == '1' else "Non-Censorship"
-                precision = report_dict[label]['precision']
-                recall = report_dict[label]['recall']
-                f1 = report_dict[label]['f1-score']
-                support = report_dict[label]['support']
-                summary.append(
-                    f"{lbl} Events:\n"
-                    f"  - Precision: {precision:.2f}\n"
-                    f"  - Recall: {recall:.2f}\n"
-                    f"  - F1-Score: {f1:.2f}\n"
-                    f"  - Support: {support}"
-                )
-        summary.append(f"Overall Accuracy: {report_dict.get('accuracy', 0):.2f}")
-        return "\n".join(summary)
+        print(self.format_report(classification_report(y_test, y_pred, output_dict=True)))
 
     def predict(self, entry):
         if not self.trained:
-            raise ValueError("Model is not trained yet.")
-        X = np.array([[
+            raise ValueError("Model not trained.")
+        features = np.array([[
             int(entry.get("domain_is_control", False)),
             int(entry.get("no_response_in_measurement_matches_template", False)),
             int(entry.get("stateful_block", False)),
             int(entry.get("matches_template", False)),
             int(entry.get("controls_failed", False)),
-            1 if "BLOCKED" in (entry.get("received_body") or "") else 0,
-            self.statusCodeFeature(entry.get("received_status")),
-            self.recievedErrorFeature(entry.get("received_error")),
-            self.countryHeuristic(entry.get("server_country")),
-            self.hasTLSInfo(entry.get("received_tls_cert"))
+            int("BLOCKED" in (entry.get("received_body") or "")),
+            self.status_code_signal(entry.get("received_status")),
+            self.error_signal(entry.get("received_error")),
+            self.country_signal(entry.get("server_country"))
         ]])
-        return int(self.model.predict(X)[0])
+        return int(self.model.predict(features)[0])
+
+    def format_report(self, report):
+        out = []
+        for label in ['0', '1']:
+            lbl = "Censorship" if label == '1' else "Non-Censorship"
+            if label in report:
+                out.append(f"{lbl}: Precision={report[label]['precision']:.2f}, Recall={report[label]['recall']:.2f}, F1={report[label]['f1-score']:.2f}")
+        out.append(f"Accuracy: {report.get('accuracy', 0):.2f}")
+        return "\n".join(out)
 
     def visualize_tree(self):
         if not self.trained:
-            print("Model not trained yet.")
+            print("Model not trained.")
             return
-
-        feature_names = self.feature_names
-
-
         plt.figure(figsize=(20, 10))
-        tree.plot_tree(self.model, filled=True, feature_names=feature_names, class_names=["Non-Censorship", "Censorship"], rounded=True)
-        plt.title("Censorship Detection Decision Tree")
+        tree.plot_tree(
+            self.model,
+            filled=True,
+            feature_names=self.feature_names,
+            class_names=["Non-Censorship", "Censorship"],
+            rounded=True
+        )
+        plt.title("Decision Tree: Censorship Detection")
         plt.show()

@@ -241,6 +241,19 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.pushButton_7)
 
 
+        self.pushButton_8 = QPushButton(self.topBar)
+        self.pushButton_8.setObjectName(u"pushButton_8")
+        sizePolicy.setHeightForWidth(self.pushButton_8.sizePolicy().hasHeightForWidth())
+        self.pushButton_8.setSizePolicy(sizePolicy)
+        self.pushButton_8.setFont(font1)
+        self.pushButton_8.setStyleSheet(u"Border-Left: 3px solid rgba(255,255,255,0.05);\n"
+"Border-Bottom: 0px;")
+        icon4 = QIcon()
+        icon4.addFile(u"icons/database.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_8.setIcon(icon4)
+        self.pushButton_8.setIconSize(QSize(23, 23))
+
+        self.horizontalLayout_2.addWidget(self.pushButton_8)
 
         self.verticalLayout_5.addWidget(self.topBar)
 
@@ -371,6 +384,7 @@ class Ui_MainWindow(object):
     # setupUi
 
     def retranslateUi(self, MainWindow):
+        self.pushButton_8.setText("DATABASE")
         self.pushButton_7.setText("DASHBOARD")
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.pushButton_4.setText("")
