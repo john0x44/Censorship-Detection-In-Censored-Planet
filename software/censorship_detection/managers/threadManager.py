@@ -18,21 +18,20 @@ class ProcessBatchThread(QThread):
 
     def __init__(self, mainDirectory, datasetDirectory, fileName, fileID, batchSize, iterationSize, lastLineReadPosition):
         QThread.__init__(self)
-        self.batch = {} #store the batch 
+        self.batch = {} #store the batches 
         self.mainDirectory = mainDirectory
         self.datasetDirectory = datasetDirectory
         self.fileName = fileName
         self.fileID = fileID 
         self.batchSize = batchSize 
         self.iterationSize = iterationSize 
-        self.lastLineReadPosition = lastLineReadPosition # store the last line read position
-        self.iterationIndex = 1 #store the batch indexing correctly 
+        self.lastLineReadPosition = lastLineReadPosition 
+        self.iterationIndex = 1
 
     def run(self):
         filePath = f"{self.mainDirectory}/{self.datasetDirectory}/{self.fileName}"
         try:
             with open(filePath, 'r', encoding='utf-8') as file:
-                #Move to last read position 
                 for _ in range(self.lastLineReadPosition):
                     next(file, None)
             
@@ -41,7 +40,7 @@ class ProcessBatchThread(QThread):
 
                     for _ in range(self.batchSize):
                         line = file.readline()
-                        if not line: #if this is the end of file stop
+                        if not line: 
                             break 
                         thisBatch.append(line.strip())
                     
@@ -54,10 +53,10 @@ class ProcessBatchThread(QThread):
                     if len(thisBatch) < self.batchSize:
                         break
 
-            # emit the batch fileID, batchSize, lastLineReadPosition
+            # Send the batch fileID, batchSize, lastLineReadPosition as a dict
             self.Result.emit({"fileID":self.fileID,"batch":self.batch,"lastLine":self.lastLineReadPosition})
 
-        except Exception as e:
-            print(f"Error reading file {self.fileName}: {e}")
+        except Exception as error:
+            print(f"Error reading file {self.fileName}: {error}")
         
 

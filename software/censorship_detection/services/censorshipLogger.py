@@ -2,7 +2,7 @@
 import datetime
 
 class CensorshipLogger:
-    def __init__(self, log_file_path="censorship_log.txt"):
+    def __init__(self, log_file_path="logs/censorship_log.txt"):
         self.log_file_path = log_file_path
 
     def log(self, entry):
@@ -10,9 +10,9 @@ class CensorshipLogger:
         domain = entry.get("domain", "Unknown")
         country = entry.get("server_country", "Unknown")
         score = entry.get("score", 0)
-        reason = f"High Score ({score:.2f})"
+        reason = f"High Score [{score:.2f}]"
 
         log_line = f"[{timestamp}] DOMAIN: {domain}, COUNTRY: {country}, SCORE: {score:.2f} | REASON: {reason}\n"
         
-        with open(self.log_file_path, "a", encoding="utf-8") as f:
+        with open(self.log_file_path, "a") as f:
             f.write(log_line)

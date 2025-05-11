@@ -98,10 +98,22 @@
 
 # Feature 3 : Implemented (optional decision trees)
 
-# 3/29 - 3/5 
+# 3/29  
 # IMPLEMENTED/FIXED DecisionTree.py : Added heuristics 
 # IMPLEMNETED topBlockedDomains into dashboardManager.py : Show the top blocked domains in the datasets that the user has selected
 # IMPLEMENTED anomalyLogger class : Show anomalies within the dataset (those datasets that were not filtered)
 # IMPLEMENTED countrySummary class : Show the detected countries with its corresponding events detected
 # IMPLEMENTED censorshipLogger class : Extract the censored events into a txt file
 # IMPLEMENTED databaseManager class : Makes all summary components viewable into one component making database saving easier
+
+# FROM 3/29 - NOW 
+# IMPLEMENTED : implement each feature in a modular approach in the backend
+# IMPLEMENTED : Implemented score report metric (manager class) in which shows us how close our measurement approach score is accurate to the OONI (confirmed censored events)
+# FIXED : UI elements so it is much cleaner 
+# ORGANIZED : Files 
+
+# IMPLEMENTED: 
+# Domain Search Feature:  user can search for a sepcific domain if blocked in censored list 
+# Country Search Feature: Allow the user to select a country from a dropdown and show only censored events related to that country.
+
+# FIXED: Database SQL queries issues 

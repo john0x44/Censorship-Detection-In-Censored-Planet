@@ -9,6 +9,7 @@ from services.miniBatch import MiniBatch
 from managers.chartManager import ChartManager
 from managers.dashboardManager import DashboardManager
 from managers.databaseManager import DatabaseManager 
+from managers.scoreReportManager import ScoreReportManager 
 
 #class for creating a file frame
 class createFileFrame:
@@ -89,20 +90,27 @@ class createFileFrame:
     
 #class for connecting the backend to frontend 
 class ConnectUI:
-    def __init__(self, UI, fileInfoUI, dashboardUI, databaseUI):
+    #Args: self.FILEINFO_UI,self.DASHBOARD_UI,self.DATABASE_UI,self.FILTERTIME_UI
+    def __init__(self, UI, fileInfoUI, dashboardUI, databaseUI, filterTimeUI, scoreReportUI, domainSearchUI, countrySearchUI):
+        #Load in the UI into memory for use later 
+        self.domainSearchUI = domainSearchUI
+        self.countrySearchUI = countrySearchUI 
         self.databaseUI = databaseUI 
         self.dashboardUI = dashboardUI
         self.UI = UI 
         self.fileInfoUI = fileInfoUI
+        self.filterTimeUI = filterTimeUI
+        self.scoreReportUI = scoreReportUI 
 
         # load in the chart manager 
         self.chartManager = ChartManager(self.UI)
         # load the dashboard UI 
         self.dashboardManager = DashboardManager(self.UI, self.dashboardUI)
-        self.databaseManager = DatabaseManager(self.databaseUI,self.UI.pushButton_8)
+        self.databaseManager = DatabaseManager(self.databaseUI,self.UI.pushButton_8, self.filterTimeUI, self.domainSearchUI, self.countrySearchUI)
+        self.scoreReportManager = ScoreReportManager(self.scoreReportUI,self.UI.pushButton_9)
         # create the minibatch file 
         # pass in the process batch button
-        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize, self.chartManager, self.dashboardManager, self.databaseManager) 
+        self.miniBatch = MiniBatch(self.UI, self.UI.pushButton_3, self.getBatchAmount, self.getIterationAmount, self.updateBatchesMemSize, self.chartManager, self.dashboardManager, self.databaseManager, self.scoreReportManager) 
 
         # iteration input 
         self.iterationInput = self.UI.lineEdit_2

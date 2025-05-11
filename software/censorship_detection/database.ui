@@ -44,6 +44,21 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
 </string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -127,6 +142,116 @@ QScrollBar::handle:horizontal{background-color: rgba(80, 80, 122, .2);}
             </property>
             <property name="text">
              <string>DATABASE </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_7">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>180</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Right: 3px solid rgba(255,255,255,0.05);
+</string>
+            </property>
+            <property name="text">
+             <string>FILTER BY TIME</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/clock.svg</normaloff>icons/clock.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>180</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Right: 3px solid rgba(255,255,255,0.05);
+</string>
+            </property>
+            <property name="text">
+             <string>DOMAIN SEARCH</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/web.svg</normaloff>icons/web.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_9">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>190</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <pointsize>11</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>COUNTRY SEARCH</string>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/country.svg</normaloff>icons/country.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>22</width>
+              <height>22</height>
+             </size>
             </property>
            </widget>
           </item>
@@ -221,6 +346,35 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/anomaly.svg</normaloff>icons/anomaly.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="label_2">
                   <property name="font">
                    <font>
@@ -234,6 +388,9 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                   </property>
                   <property name="text">
                    <string>ANOMALIES LIST</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -283,8 +440,8 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>395</width>
-                     <height>478</height>
+                     <width>401</width>
+                     <height>439</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -303,35 +460,6 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                     </item>
                    </layout>
                   </widget>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.02);
-</string>
-                  </property>
-                  <property name="text">
-                   <string>SAVE TO DATABASE</string>
-                  </property>
                  </widget>
                 </item>
                </layout>
@@ -404,6 +532,35 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QPushButton" name="pushButton_3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/country.svg</normaloff>icons/country.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>25</width>
+                    <height>25</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="label_3">
                   <property name="font">
                    <font>
@@ -417,6 +574,9 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                   </property>
                   <property name="text">
                    <string>COUNTRIES LIST</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -434,7 +594,7 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                <property name="frameShadow">
                 <enum>QFrame::Raised</enum>
                </property>
-               <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0,0">
+               <layout class="QVBoxLayout" name="verticalLayout_7" stretch="0">
                 <property name="spacing">
                  <number>0</number>
                 </property>
@@ -466,8 +626,8 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>395</width>
-                     <height>478</height>
+                     <width>401</width>
+                     <height>439</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -492,35 +652,6 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                     </item>
                    </layout>
                   </widget>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_3">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.02);
-</string>
-                  </property>
-                  <property name="text">
-                   <string>SAVE TO DATABASE</string>
-                  </property>
                  </widget>
                 </item>
                </layout>
@@ -600,6 +731,35 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QPushButton" name="pushButton_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset>
+                    <normaloff>icons/blocked.svg</normaloff>icons/blocked.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLabel" name="label_4">
                   <property name="font">
                    <font>
@@ -613,6 +773,9 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                   </property>
                   <property name="text">
                    <string>CENSORED EVENTS LIST</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -662,8 +825,8 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                     <rect>
                      <x>0</x>
                      <y>0</y>
-                     <width>398</width>
-                     <height>478</height>
+                     <width>404</width>
+                     <height>439</height>
                     </rect>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -684,39 +847,235 @@ Border-Bottom: 3px solid rgba(255,255,255,0.02);
                   </widget>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_4">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.02);
-</string>
-                  </property>
-                  <property name="text">
-                   <string>SAVE TO DATABASE</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </widget>
              </item>
             </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_13">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>50</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">Border-Top: 3px solid rgba(255,255,255,0.05);
+Border-Bottom: 3px solid rgba(255,255,255,0.05);
+</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_5">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border: 0px;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/sql.svg</normaloff>icons/sql.svg</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>25</width>
+              <height>25</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_8">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Top : 0px;</string>
+            </property>
+            <property name="text">
+             <string>Total Anomalies: 19</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_9">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Top : 0px;</string>
+            </property>
+            <property name="text">
+             <string>Top Country: AE (19 Events)</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_10">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Top : 0px;</string>
+            </property>
+            <property name="text">
+             <string>Total Censorship Events: 19</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_14">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Raised</enum>
+         </property>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pushButton_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>30</width>
+              <height>999999</height>
+             </size>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset>
+              <normaloff>icons/status.svg</normaloff>icons/status.svg</iconset>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_11">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">Border-Right: 3px solid rgba(255,255,255,0.05);
+</string>
+            </property>
+            <property name="text">
+             <string>Top Domains Censored</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_12">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>www.somedomain.com,www.somedomain2.com,www.somedomain3.com</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
            </widget>
           </item>
          </layout>

@@ -28,22 +28,22 @@ class DashboardManager:
                         domain = entry.get('domain', 'UNKNOWN')
                         domain_counts[domain] = domain_counts.get(domain, 0) + 1
 
-        sorted_domains = sorted(domain_counts.items(), key=lambda x: x[1], reverse=True)
-        top_domains = sorted_domains[:5]
+        sortedDomains = sorted(domain_counts.items(), key=lambda x: x[1], reverse=True)
+        topDomains = sortedDomains[:5]
 
-        if not top_domains:
+        if not topDomains:
             display = "No censored domains found."
         else:
             display = "Top Blocked Domains:\n"
-            for domain, count in top_domains:
-                display += f"• {domain}: {count} times\n"
+            for domain, count in topDomains:
+                display += f"{domain}: {count} times\n"
 
         self.topBlockedTextBox.setText(display)
 
     def updateDashboard(self, dataProcessedInfo):
         self.openDashboard()
         eventRate = (dataProcessedInfo['detected']/dataProcessedInfo['processed'])*100
-        self.dashboardUI.label_5.setText(f"SUCCESS RATE: %{eventRate}")
+        self.dashboardUI.label_5.setText(f"EVENT RATE: %{eventRate}")
         #self.dashboardUI.label_3.setText(f"EVENTS PROCESSED: {dataProcessedInfo['processed']}")
         self.dashboardUI.label_4.setText(f"ANOMALIES DETECTED: {dataProcessedInfo['anomalies']}/{dataProcessedInfo['processed']}")
-        self.dashboardUI.label_4.setText(f"EVENTS DETECTED: {dataProcessedInfo['detected']}/{dataProcessedInfo['processed']}")
+        self.dashboardUI.label_2.setText(f"EVENTS DETECTED: {dataProcessedInfo['detected']}/{dataProcessedInfo['processed']}")

@@ -14,8 +14,8 @@ class CountrySummary:
         if entry.get("score", 0) > 0.5:  # We can modify this later 
             self.summary[country] += 1
 
-    def print_summary(self):
-        print("\n[Censorship Events by Country]")
+    def printSummary(self):
+        print("[Censorship Events by Country]")
         for country, count in sorted(self.summary.items(), key=lambda x: x[1], reverse=True):
             print(f"{country}: {count}")
 

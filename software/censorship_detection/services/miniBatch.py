@@ -15,10 +15,13 @@ import sys
 
 class MiniBatch:
     # grab the batch amount and iteration amount since data can change so we have to always check before processing the batches 
-    def __init__(self, UI, processBatchButton, getBatchAmount, getIterationAmount, updateBatchesMemSize, chartManager, dashboardManager, databaseManager): 
+    def __init__(self, UI, processBatchButton, getBatchAmount, getIterationAmount, updateBatchesMemSize, chartManager, dashboardManager, databaseManager, scoreReportManager): 
         self.UI = UI 
+        # Load managers into memory for use throughout software 
         self.databaseManager = databaseManager
         self.chartManager = chartManager 
+        self.scoreReportManager = scoreReportManager 
+
         self.filtering = Filtering(dashboardManager) 
         self.showEvents = ShowEvents(self.UI, chartManager)
         self.dashboardManager = dashboardManager
@@ -76,7 +79,7 @@ class MiniBatch:
                 if not batch or 'batch' not in batch:
                     continue
 
-                # loop through sub-batches safely
+                # loop through batches
                 for i in range(len(batch['batch'])):
                     sub_batch_key = i + 1
                     if sub_batch_key not in batch['batch']:
@@ -87,7 +90,7 @@ class MiniBatch:
                         if entry.get('canUse', False):
                             all_batches.append(entry)
 
-            self.filtering.treeAnalyzer.train_model(all_batches)
+            self.filtering.treeAnalyzer.trainModel(all_batches)
 
             for batch in self.batchesProcessed:
                 if not batch or 'batch' not in batch:
@@ -107,7 +110,7 @@ class MiniBatch:
             
             #Country summary events 
 
-            # Update country-based censorship count
+            # Update country based censorship count
             for batch in self.batchesProcessed:
                 if not batch or 'batch' not in batch:
                     continue
@@ -121,9 +124,9 @@ class MiniBatch:
                             self.countrySummary.update(entry)
 
             # Print summary to console
-            self.countrySummary.print_summary()
+            self.countrySummary.printSummary()
 
-            self.filtering.treeAnalyzer.visualize_tree()
+            #self.filtering.treeAnalyzer.visualizeTree()
             self.currentBatches = [] 
             self.dashboardManager.updateTopBlockedDomains(self.batchesProcessed)
             self.filtering.updateDashboard()
@@ -135,8 +138,18 @@ class MiniBatch:
                 for sub_batch in batch['batch'].values()
                 for entry in sub_batch if entry.get("score", 0) > 0.5
             ])
+
+            #Pass censored events by measurement score into scoreReportManager 
+            censored_events = [
+                entry for batch in self.batchesProcessed if 'batch' in batch
+                for sub_batch in batch['batch'].values()
+                for entry in sub_batch if entry.get("score", 0) > 0.5
+            ]
+            self.scoreReportManager.collectUserDetectedDomains(censored_events)
+            self.scoreReportManager.updateUI()
+
             print("\n[Recent Anomalies]")
-            for a in self.filtering.anomalyLogger.get_summary():
+            for a in self.filtering.anomalyLogger.getSummary():
                 print(f"Domain: {a['domain']} | Country: {a['server_country']} | Time: {a['timestamp']} | Reason: {a['reason']}")
         # visualize the batches onto the UI 
         self.showEvents.showEvents(self.batchesProcessed)
@@ -153,6 +166,8 @@ class MiniBatch:
             self.dataProgress[fileID] = 0
         lastLine = self.dataProgress[fileID]
         return lastLine
+    
+        #Tracking progress batch 
         # try:
         #     with open(self.trackProgressBatch, 'r') as file:
         #         self.dataProgress = json.load(file)
