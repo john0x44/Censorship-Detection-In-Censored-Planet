@@ -1,0 +1,10 @@
+The codebase is structured into a component based architecture where each class is a self contained component with a specific role. These components are assembled in main.py to build the software's functionality.
+
+
+DataCleaner.py : Loads and cleans data from JSON files to a specified directory. It standardizes timestamps, checks data entries for required metadatafields and validity, and logs issues using AnomalyLogger.The processData method reads files for a given country code, filters and cleans valid dataset entries and saves them to a JSON file, and returns the cleaned data, counts, and anomalies. The getCountryCodes method extracts valid country codes from file names for utilization in user input for testing a given dataset 
+
+Logger.py : Logs anomalies within the datset such as missing/malformed metadata so dataset can be error free in the future for analysis. The AnomalyLogger class logs issues or anomalies found in data processing. It saves details like the timestamp, domain, country, and reason for each anomaly to a file in the directory (logs/anomaly_log.txt) and keeps a list of recent anomalies in memory. The log method records an anomaly with the given data and reason, while getSummary returns the list of all recorded anomalies.
+
+Aggregation.py : Process and summarize raw measurement data by converting it into a structured format using pandas dataframe. Calculates a response value based on specific conditions logging any invalid responses as anomalies. Then groups the data by domain, country, AS and IP Org to compute the most frequent response class and total count for each group returing a simplified aggregated dataset with these statistics class DataAggregator:
+
+DecisionTree.py : 
